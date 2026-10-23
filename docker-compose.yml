@@ -1,0 +1,67 @@
+services:
+  # 1. PostgreSQL Database Service
+  postgres:
+    image: postgres:17-alpine
+    container_name: lms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: moodle
+      POSTGRES_USER: moodleuser
+      POSTGRES_PASSWORD: moodlepass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Auto-restore Moodle DB on first container startup
+      - ./scripts/moodle_backup.sql:/docker-entrypoint-initdb.d/01_moodle_backup.sql:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U moodleuser -d moodle" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Moodle 5.x Web Application
+  moodle:
+    build:
+      context: .
+      dockerfile: docker/moodle/Dockerfile
+    container_name: lms-moodle
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:80"
+    environment:
+      MOODLE_DB_HOST: postgres
+      MOODLE_DB_PORT: 5432
+      MOODLE_DB_NAME: moodle
+      MOODLE_DB_USER: moodleuser
+      MOODLE_DB_PASS: moodlepass
+      MOODLE_WWWROOT: http://localhost:8000
+      MOODLE_DATAROOT: /var/www/moodledata
+    volumes:
+      - ./moodle:/var/www/html
+      - moodledata:/var/www/moodledata
+
+  # 3. Python AI Backend (FastAPI)
+  ai-service:
+    build:
+      context: ./ai_service
+      dockerfile: Dockerfile
+    container_name: lms-ai-service
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql://moodleuser:moodlepass@postgres:5432/moodle
+      MOODLE_BASE_URL: http://moodle
+      PORT: 8001
+    volumes:
+      - ./ai_service:/app
+
+volumes:
+  pgdata:
+  moodledata:

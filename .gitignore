@@ -1,0 +1,26 @@
+# === Moodle Specifics ===
+moodledata/
+moodle-latest-*.zip
+*.zip
+*.tar.gz
+moodle/config.php
+moodle/node_modules/
+
+# === Python & AI Service ===
+ai_service/__pycache__/
+ai_service/*/__pycache__/
+*.py[cod]
+*$py.class
+ai_service/.venv/
+ai_service/env/
+ai_service/venv/
+ai_service/chroma_db/
+ai_service/vector_store/
+*.env
+
+# === IDE & OS Cache ===
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
