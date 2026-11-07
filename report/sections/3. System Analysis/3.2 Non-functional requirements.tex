@@ -1,0 +1,77 @@
+\section{Non-functional Requirements}
+
+The non-functional requirements below are stated with measurable targets wherever possible, so that they can be verified during testing. Because the system is evaluated at a small scale (a few courses and sample users, see Section 1.3), the targets are set for that scale and for the limited hardware available to the team.
+
+\newcommand{\nfrtablehead}{%
+\hline
+\textbf{ID} & \textbf{Category} & \textbf{Requirement} \\ \hline}
+
+\newenvironment{nfrtable}[2]{%
+\small\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.17\textwidth}|>{\raggedright\arraybackslash}p{0.17\textwidth}|>{\raggedright\arraybackslash}p{0.56\textwidth}|}
+\caption{#1}\label{#2}\\
+\nfrtablehead
+\endfirsthead
+\nfrtablehead
+\endhead
+}{%
+\end{longtable}}
+
+\subsection{Performance and scalability}
+\begin{nfrtable}{Non-functional requirements: performance and scalability}{tab:nfr-performance}
+NFR-PER-01 & Response time & Non-AI pages and API calls of the portal shall respond within 2 seconds (95th percentile) with 100 concurrent users. \\ \hline
+NFR-PER-02 & AI response time & The chatbot shall display the first part of a streamed answer within 3 seconds and complete answers of up to about 300 words within 15 seconds (95th percentile). \\ \hline
+NFR-PER-03 & Dashboard load & The at-risk student dashboard of a class of up to 200 students shall load within 3 seconds, because risk scores are computed in advance and not at request time. \\ \hline
+NFR-PER-04 & Batch processing & Risk indicators and scores for all test courses shall be recomputed by a scheduled job (at least daily) that finishes within 30 minutes. \\ \hline
+NFR-PER-05 & Asynchronous processing & Document conversion, indexing, and model inference shall run asynchronously through a message queue, so that uploading a file or requesting an analysis never blocks the user interface; a 50-page PDF shall be searchable within 5 minutes of upload. \\ \hline
+NFR-SCA-01 & Scalability & The backend gateway and the AI Service shall be stateless and packaged as containers, so that more instances can be added behind the reverse proxy to handle a higher load without code changes. \\ \hline
+\end{nfrtable}
+
+\subsection{Reliability and availability}
+\begin{nfrtable}{Non-functional requirements: reliability and availability}{tab:nfr-reliability}
+NFR-REL-01 & Fault isolation & A failure of the AI Service or the language model provider shall not affect the core LMS functions; the portal shall show a clear temporary error for the AI features only. \\ \hline
+NFR-REL-02 & Graceful degradation & When the warning model cannot run, the system shall display the most recently computed results together with their computation time, or fall back to the threshold rules. \\ \hline
+NFR-REL-03 & Data consistency & Data synchronization from Moodle shall be idempotent and resumable: re-running a synchronization job shall not create duplicate records. \\ \hline
+NFR-REL-04 & Backup & The databases (Moodle, application, and vector database) shall be backed up at least daily, and a backup shall be restorable within 2 hours. \\ \hline
+\end{nfrtable}
+
+\subsection{Security and privacy}
+\begin{nfrtable}{Non-functional requirements: security and privacy}{tab:nfr-security}
+NFR-SEC-01 & Transport security & All communication between clients and the system, and between public services, shall use HTTPS (TLS 1.2 or higher). \\ \hline
+NFR-SEC-02 & Authentication & Every API request to the gateway and the AI Service shall carry a valid access token; tokens shall expire after a configurable period. \\ \hline
+NFR-SEC-03 & Authorization & Role and enrollment checks shall be enforced on the server side for every request: a student can only access their own data and enrolled courses, and a teacher can only access the courses they teach. \\ \hline
+NFR-SEC-04 & Credential handling & User passwords shall be managed only by Moodle and never stored by the extension services; API keys and secrets shall be stored in environment variables or a secret store, never in source code. \\ \hline
+NFR-SEC-05 & Abuse prevention & The chatbot shall limit each user to a configurable number of requests per minute (default 20), validate all inputs, and apply instructions that prevent prompt injection from overriding system rules. \\ \hline
+NFR-PRI-01 & Data minimization & Only the question and the retrieved course text shall be sent to an external language model; names, student IDs, emails, and grades shall not be included in prompts, and student identifiers shall be pseudonymized. \\ \hline
+NFR-PRI-02 & Warning visibility & Risk warnings of a student shall be visible only to that student, the teachers of the course, and administrators. \\ \hline
+NFR-AUD-01 & Auditability & The system shall log administrative actions and AI requests (user, course, time, latency, token usage, status) for monitoring and auditing, without storing passwords or access tokens. \\ \hline
+\end{nfrtable}
+
+\subsection{Maintainability, extensibility, and portability}
+\begin{nfrtable}{Non-functional requirements: maintainability, extensibility, and portability}{tab:nfr-maintainability}
+NFR-MNT-01 & Upgrade safety & The Moodle core shall not be modified; all extensions shall be implemented as Moodle plugins or external services, so that Moodle can be upgraded independently. \\ \hline
+NFR-MNT-02 & Modularity & The portal, backend gateway, data-processing service, and AI Service shall communicate only through documented REST APIs (OpenAPI specification), so that each component can be developed, tested, and deployed independently. \\ \hline
+NFR-MNT-03 & Extensibility & The language model provider, embedding model, and warning model shall be replaceable through configuration and model versioning, without changing business logic. \\ \hline
+NFR-MNT-04 & Code quality & Source code shall be managed with Git using feature branches merged into a development branch through pull requests; core business logic and AI pipelines shall have automated tests. \\ \hline
+NFR-POR-01 & Portability & The whole system (Moodle, databases, backend gateway, AI Service, and portal) shall be started with a single Docker Compose configuration in development and test environments. \\ \hline
+\end{nfrtable}
+
+\subsection{Usability and compatibility}
+\begin{nfrtable}{Non-functional requirements: usability and compatibility}{tab:nfr-usability}
+NFR-USA-01 & Language & The interface shall support Vietnamese as the primary language and English as a secondary language. \\ \hline
+NFR-USA-02 & Clarity & Risk warnings shall be presented with a color-coded level (red, amber, green) and their contributing factors in plain language, so that users without technical knowledge can understand why a student was flagged. \\ \hline
+NFR-USA-03 & Responsiveness & The portal shall be usable on screens from 360 pixels wide (mobile phones) to desktop monitors. \\ \hline
+NFR-USA-04 & Learnability & A new user shall be able to ask the chatbot a question or open the at-risk student list without training, within three clicks from their dashboard. \\ \hline
+NFR-COM-01 & Browser support & The portal shall work on the two latest major versions of Google Chrome, Microsoft Edge, and Mozilla Firefox. \\ \hline
+NFR-COM-02 & Platform & The extensions shall be compatible with Moodle 5.x and PostgreSQL. \\ \hline
+\end{nfrtable}
+
+\subsection{Quality of AI components}
+\begin{nfrtable}{Non-functional requirements: quality of AI components}{tab:nfr-ai}
+NFR-AI-01 & Retrieval quality & On a test set of at least 100 questions built by the team from course materials, the relevant chunk shall be among the top 5 retrieved results (Recall@5) for at least 80\% of the questions. \\ \hline
+NFR-AI-02 & Answer faithfulness & Answers shall reach a faithfulness score of at least 0.8 (RAGAS), and every answer shall either cite at least one source or state that no answer was found. \\ \hline
+NFR-AI-03 & Warning effectiveness & Evaluated on held-out course presentations, the warning model shall reach a recall of at least 0.75 for the at-risk class when about 40\% of the course has elapsed, and a higher PR-AUC than the logistic regression baseline. \\ \hline
+NFR-AI-04 & Explainability & Every risk prediction shall include its top three contributing factors, and the displayed factors shall be consistent with the model's SHAP values. \\ \hline
+NFR-AI-05 & Fairness & The difference in model performance between demographic groups (e.g., gender, region) shall be measured (ABROCA) and reported; demographic attributes shall not be used as input features. \\ \hline
+NFR-AI-06 & Human oversight & AI outputs shall be presented as decision support only; the system shall not automatically take academic decisions (such as grading or penalties) based on them. \\ \hline
+\end{nfrtable}

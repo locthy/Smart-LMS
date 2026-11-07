@@ -1,0 +1,168 @@
+\section{Related Systems Survey}
+\subsection{Canvas LMS}
+\setcounter{table}{0}
+\renewcommand{\thetable}{2.1.\arabic{table}}
+\begin{xltabular}{\textwidth}{>{\bfseries}p{2.8cm} X X}
+    % 1. Header for the first page
+    \caption{Comparative Analysis of Academic LMS Platforms} \label{tab:lms_comparison} \\
+    \toprule
+    Feature / Criterion & Moodle & Canvas LMS \\
+    \midrule
+    \endfirsthead
+
+    % 2. Repeating header for all subsequent pages
+    \multicolumn{3}{l}{\textit{\small Table \thetable\ (continued)}} \\
+    \toprule
+    Feature / Criterion & Moodle & Canvas LMS \\
+    \midrule
+    \endhead
+
+    % 3. Footer on all pages except the last
+    \midrule
+    \multicolumn{3}{r}{\textit{\small (Continued on next page)}} \\
+    \endfoot
+
+    % 4. Footer for the final page
+    \bottomrule
+    \endlastfoot
+
+    % ----------------- TABLE CONTENT -----------------
+    Target Environment & Higher education, K-12, and enterprise training. & Primarily higher education and K-12. \\
+    \addlinespace
+    System Architecture & Open-source. Highly modular, allowing deep database access and custom plugin development. & Proprietary (SaaS). Cloud-hosted with strict core codebase protection, relying on external LTI integrations. \\
+    \addlinespace
+    Course Registration & Managed via standard enrollment plugins or manual cohort syncs. Lacks native AI-driven prerequisite validation and advisement. & Integrates with university Student Information Systems (SIS). Does not feature an intelligent AI advisor for course selection. \\
+    \addlinespace
+    Course \& Document Management & Extensive file support. Instructors can upload syllabi and materials. & Excellent module-based organization and drag-and-drop file management. \\
+    \addlinespace
+    Assessment \& Grading & Comprehensive quizzing engine with rubrics and automated grading. & Highly intuitive ``SpeedGrader'' interface with built-in rubrics and annotation tools. \\
+    \addlinespace
+    Early Warning \& Analytics & Rule-based activity completion tracking and standard analytics models to flag inactive students. & Strong native learning analytics displaying student engagement, grade distribution, and interaction metrics. \\
+    \addlinespace
+    AI Integration & No native AI out-of-the-box. However, its open architecture makes it the perfect foundation for building custom modules (like your document-grounded Q\&A or risk-detection engines). & Relies on third-party integrations (e.g., external AI tutors via LTI). Cannot easily modify the core system to embed a native AI registration advisor. \\
+    \addlinespace
+    Role \& User Management & Extremely granular Role-Based Access Control (RBAC). Admins can define custom permissions down to specific activity levels. & Standardized roles (Admin, Teacher, TA, Student) with solid, but less granular, permission customization. \\
+\end{xltabular}
+
+\noindent Traditional LMS platforms like Moodle and Canvas function primarily as passive content repositories. The proposed system transitions into an active, AI-driven educational environment by natively embedding intelligence into university workflows. It surpasses standard systems through two core capabilities:
+
+\begin{itemize}
+    \item \textbf{Contextual AI Assistant (RAG):} Embeds a Q\&A chatbot directly grounded in uploaded course materials, eliminating reliance on fragmented third-party plugins.
+    \item \textbf{Diagnostic Risk Detection:} Proactively identifies at-risk students and provides explicit causal explanations (e.g., consecutive scoring downtrends) rather than just displaying raw statistical charts.
+\end{itemize}
+
+
+\subsection{D2L Brightspace}
+
+\begin{xltabular}{\textwidth}{>{\bfseries}p{2.8cm} X X}
+
+    % 1. Header for the first page
+    \caption{Comparative Analysis of D2L Brightspace}
+    \label{tab:brightspace_comparison} \\
+
+    \toprule
+    Feature / Criterion & Moodle & D2L Brightspace \\
+    \midrule
+    \endfirsthead
+
+    % 2. Repeating header for all subsequent pages
+    \multicolumn{3}{l}{\textit{\small Table \thetable\ (continued)}} \\
+    \toprule
+    Feature / Criterion & Moodle & D2L Brightspace \\
+    \midrule
+    \endhead
+
+    % 3. Footer on all pages except the last
+    \midrule
+    \multicolumn{3}{r}{\textit{\small (Continued on next page)}} \\
+    \endfoot
+
+    % 4. Footer for the final page
+    \bottomrule
+    \endlastfoot
+
+    % ----------------- TABLE CONTENT -----------------
+
+    Target Environment &
+    Supports higher education, K--12 education, and organizational
+    training through a flexible learning management platform. &
+    Supports higher education, K--12 education, and organizational
+    learning through an integrated learning management platform. \\
+
+    \addlinespace
+
+    System Architecture &
+    Open-source and modular, allowing institutions to customize the
+    platform and develop or install plugins. &
+    Commercial LMS platform with integrated learning tools and
+    additional analytics capabilities available through its product
+    offerings. \\
+
+    \addlinespace
+
+    Course Registration &
+    Supports course enrollment through configurable enrollment methods,
+    plugins, and administrative settings. &
+    Supports course management and enrollment workflows. Its Student
+    Success System focuses on predicting learner success rather than
+    providing AI-based course recommendations. \\
+
+    \addlinespace
+
+    Course \& Document Management &
+    Supports course creation, learning resources, activities, and
+    file uploads through its course management features. &
+    Supports course content organization, learning activities, and
+    resources within the Brightspace learning environment. \\
+
+    \addlinespace
+
+    Assessment \& Grading &
+    Provides quizzes, assignments, grading workflows, and configurable
+    assessment activities. &
+    Provides assessment and grading functions integrated with the
+    learning environment. Its Student Success System also uses
+    assessment-related indicators for predictive analysis. \\
+
+    \addlinespace
+
+    Early Warning \& Analytics &
+    Provides activity completion tracking, reports, and learning
+    analytics capabilities. Additional functionality can depend on
+    installed plugins and institutional configuration. &
+    The Student Success System uses predictive analytics and machine
+    learning techniques to estimate learner success and predicted
+    grades, helping instructors identify students who may need support. \\
+
+    \addlinespace
+
+    AI Integration & 
+    Moodle's extensible architecture supports integration and
+    customization through plugins and external services. Available
+    AI capabilities depend on the implementation and installed tools. &
+    The Student Success System integrates predictive analytics and
+    machine learning into learner success monitoring, using historical
+    course data to generate predictions and support early intervention. \\
+
+
+    \addlinespace
+
+    Role \& User Management &
+    Supports role-based permissions for administrators, teachers, and
+    students. Institutions can customize access and extend functionality
+    through plugins and configuration. &
+    Provides role-based access for administrators, instructors, and
+    learners, with permissions managed through the Brightspace
+    administrative environment. \\
+
+
+
+\end{xltabular}
+
+\noindent Moodle and D2L Brightspace both provide core learning management capabilities, including course management, learning resources, and assessment support. Their approaches to customization and learning analytics differ. Moodle's open-source and modular architecture allows institutions to adapt the platform through plugins and integrations, while D2L Brightspace's Student Success System provides predictive analytics and machine learning capabilities to estimate learner success using historical course data. 
+
+\noindent This comparison highlights two relevant considerations for the project: the flexibility to integrate and customize LMS functionality, as demonstrated by Moodle, and the use of predictive analytics to support student monitoring, as demonstrated by D2L Brightspace. These considerations can inform the selection of the system architecture and the integration of AI capabilities according to the project's requirements.
+
+
+
+

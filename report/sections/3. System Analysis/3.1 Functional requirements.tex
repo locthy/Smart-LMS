@@ -1,0 +1,105 @@
+\section{Functional Requirements}
+
+This section lists the functional requirements of the system, grouped by module. Because the project extends Moodle instead of rebuilding a learning management system, each requirement states whether it is \textbf{inherited} from Moodle (configured and exposed through the new portal) or \textbf{new} (developed by the team as plugins or external services). The \textit{Phase} column indicates whether the requirement is delivered in the specialized project (Phase 1) or the graduation project (Phase 2).
+
+
+\newcommand{\frtablehead}{%
+\hline
+\textbf{ID} & \textbf{Requirement} & \textbf{Source} & \textbf{Phase} \\ \hline}
+
+\newenvironment{frtable}[2]{%
+\small\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.15\textwidth}|>{\raggedright\arraybackslash}p{0.5\textwidth}|>{\centering\arraybackslash}p{0.12\textwidth}|>{\centering\arraybackslash}p{0.08\textwidth}|}
+\caption{#1}\label{#2}\\
+\frtablehead
+\endfirsthead
+\frtablehead
+\endhead
+}{%
+\end{longtable}}
+
+\subsection{Common user functions}
+\begin{frtable}{Functional requirements: common user functions}{tab:fr-user}
+FR-USR-01 & The system shall allow every user to log in with a username or email and password and shall redirect the user to the dashboard of their role (Student, Teacher, or Administrator). & Inherited & 1 \\ \hline
+FR-USR-02 & The system shall allow users to log out and shall end a session automatically after a configurable period of inactivity. & Inherited & 1 \\ \hline
+FR-USR-03 & The system shall allow users to view their profile and update editable fields (phone number, avatar, personal email), while keeping identity fields (user ID, full name, role) read-only. & Inherited & 1 \\ \hline
+FR-USR-04 & The system shall restrict every function and every piece of data according to the user's role and course enrollment (role-based access control). & New & 1 \\ \hline
+FR-USR-05 & The system shall display in-app notifications (e.g., new materials, deadlines, risk warnings) to the users concerned. & Inherited & 1 \\ \hline
+\end{frtable}
+
+\subsection{Student module}
+\begin{frtable}{Functional requirements: student module}{tab:fr-student}
+FR-STU-01 & The system shall allow students to browse, search, and filter the catalog of available courses and view course details (description, credits, prerequisites, lecturer, schedule). & Inherited & 1 \\ \hline
+FR-STU-02 & The system shall allow students to register for a course section during the registration period, checking prerequisites, credit limits, seat availability, and schedule conflicts. & Inherited & 1 \\ \hline
+FR-STU-03 & The system shall allow students to view the list of courses they are enrolled in. & Inherited & 1 \\ \hline
+FR-STU-04 & The system shall allow students to view and download the learning materials of their enrolled courses. & Inherited & 1 \\ \hline
+FR-STU-05 & The system shall allow students to take online quizzes within the configured time window and attempt limit. & Inherited & 1 \\ \hline
+FR-STU-06 & The system shall allow students to submit assignments as files or online text before the deadline and shall mark late submissions. & Inherited & 1 \\ \hline
+FR-STU-07 & The system shall allow students to view their published grades and the feedback given by teachers. & Inherited & 1 \\ \hline
+FR-STU-08 & The system shall display each student's learning progress (completed and remaining activities) for each enrolled course. & Inherited & 1 \\ \hline
+FR-STU-09 & The system shall display a calendar of classes, assignment deadlines, and exam dates for the student's enrolled courses. & Inherited & 1 \\ \hline
+FR-STU-10 & The system shall allow students to communicate with teachers and classmates through course forums and messages. & Inherited & 1 \\ \hline
+\end{frtable}
+
+\subsection{Teacher module}
+\begin{frtable}{Functional requirements: teacher module}{tab:fr-teacher}
+FR-TEA-01 & The system shall allow teachers to view the list of courses they are assigned to teach and open each course's home page. & Inherited & 1 \\ \hline
+FR-TEA-02 & The system shall allow teachers to view, search, and filter the roster of enrolled students, including each student's last access time. & Inherited & 1 \\ \hline
+FR-TEA-03 & The system shall allow teachers to upload learning materials (PDF, DOCX, PPTX, links) to course sections. & Inherited & 1 \\ \hline
+FR-TEA-04 & The system shall allow teachers to create, edit, and delete quizzes, including time windows, attempt limits, and questions from the question bank. & Inherited & 1 \\ \hline
+FR-TEA-05 & The system shall allow teachers to create, edit, and delete assignments with submission dates, deadlines, and file limits. & Inherited & 1 \\ \hline
+FR-TEA-06 & The system shall allow teachers to grade quizzes and assignments and give feedback to students. & Inherited & 1 \\ \hline
+FR-TEA-07 & The system shall allow teachers to view the academic performance of each student and of the whole class. & Inherited & 1 \\ \hline
+\end{frtable}
+
+\subsection{Administrator module}
+\begin{frtable}{Functional requirements: administrator module}{tab:fr-admin}
+FR-ADM-01 & The system shall allow administrators to create, update, and deactivate user accounts, individually or by bulk import. & Inherited & 1 \\ \hline
+FR-ADM-02 & The system shall allow administrators to assign and revoke roles (Student, Teacher, Administrator). & Inherited & 1 \\ \hline
+FR-ADM-03 & The system shall allow administrators to create, update, and delete courses. & Inherited & 1 \\ \hline
+FR-ADM-04 & The system shall allow administrators to create classes and sections, assign teachers to them, and assign students to them. & Inherited & 1 \\ \hline
+FR-ADM-05 & The system shall allow administrators to review course registrations and manage class schedules. & Inherited & 1 \\ \hline
+FR-ADM-06 & The system shall allow administrators to send notifications to selected users, classes, or all users. & Inherited & 1 \\ \hline
+FR-ADM-07 & The system shall allow administrators to manage system configuration, including the settings of the AI features (language model provider, risk thresholds, synchronization schedule). & New & 1 \\ \hline
+FR-ADM-08 & The system shall allow administrators to monitor the AI services, including request counts, latency, error rates, and language model token usage. & New & 2 \\ \hline
+\end{frtable}
+
+\subsection{Data integration and document processing}
+\begin{frtable}{Functional requirements: data integration and document processing}{tab:fr-integration}
+FR-INT-01 & The system shall synchronize users, courses, enrollments, grades, submissions, and activity logs from Moodle to the extension services through Moodle Web Services or scheduled database extraction, without modifying the Moodle core. & New & 1 \\ \hline
+FR-INT-02 & The system shall route every request from the portal to the AI Service through the backend gateway, which authenticates the user and checks permissions before forwarding the request. & New & 1 \\ \hline
+FR-INT-03 & The system shall automatically convert newly uploaded course materials (PDF, DOCX, PPTX) into structured Markdown text that keeps headings and page numbers. & New & 1 \\ \hline
+FR-INT-04 & The system shall split the converted text into chunks, compute their embeddings, and store them in the vector database together with metadata (course, section, file, page). & New & 1 \\ \hline
+FR-INT-05 & The system shall re-index a document when it is updated and remove its chunks when it is deleted from the course. & New & 1 \\ \hline
+FR-INT-06 & The system shall extract text from scanned documents using optical character recognition (OCR). & New & 2 \\ \hline
+\end{frtable}
+
+\subsection{AI learning assistant (RAG chatbot)}
+\begin{frtable}{Functional requirements: AI learning assistant}{tab:fr-chatbot}
+FR-CHAT-01 & The system shall allow students and teachers to ask questions in natural language (Vietnamese or English) within the context of a course. & New & 1 \\ \hline
+FR-CHAT-02 & The system shall retrieve context only from the materials of courses the user is enrolled in or teaches. & New & 1 \\ \hline
+FR-CHAT-03 & The system shall generate answers grounded in the retrieved context and attach citations (file name and page or section) to each answer. & New & 1 \\ \hline
+FR-CHAT-04 & The system shall state explicitly that it cannot find the answer when no sufficiently relevant context is retrieved, instead of generating unsupported content. & New & 1 \\ \hline
+FR-CHAT-05 & The system shall stream answers to the interface progressively as they are generated. & New & 1 \\ \hline
+FR-CHAT-06 & The system shall store chat sessions, messages, and citations so that users can review their conversation history and ask follow-up questions in context. & New & 1 \\ \hline
+FR-CHAT-07 & The system shall allow users to open the cited source document at the referenced page. & New & 2 \\ \hline
+FR-CHAT-08 & The system shall allow users to limit the search scope to a specific chapter or document and to rate answers (like or dislike). & New & 2 \\ \hline
+FR-CHAT-09 & The system shall combine semantic (vector) search with keyword (BM25) search and re-rank the retrieved chunks to improve answer accuracy. & New & 2 \\ \hline
+\end{frtable}
+
+\subsection{Academic early warning}
+\begin{frtable}{Functional requirements: academic early warning}{tab:fr-warning}
+FR-RISK-01 & The system shall periodically compute risk indicators for each enrolled student, including days since last access, activity completion rate, recent assessment scores and their trend, submission delays, and number of missing submissions. & New & 1 \\ \hline
+FR-RISK-02 & The system shall flag at-risk students using configurable threshold rules (e.g., no access for more than 7 days, completion rate below 50\%, latest score below 5.0 or missing submission). & New & 1 \\ \hline
+FR-RISK-03 & The system shall predict each student's probability of failing or withdrawing from a course with a machine learning model (gradient boosted trees) trained on historical learning data. & New & 2 \\ \hline
+FR-RISK-04 & The system shall classify each student into a risk level (High, Medium, or Low) based on the computed rules or predicted probability. & New & 1 \\ \hline
+FR-RISK-05 & The system shall explain each warning by listing its main contributing factors in plain language (e.g., ``Inactive for 14 days'', ``Quiz score dropped 25\% below the student's average''), computed with SHAP in Phase 2. & New & 1 \\ \hline
+FR-RISK-06 & The system shall display to teachers a list of at-risk students for each course, which can be sorted and filtered by risk level, together with a detailed view of each student's indicators and risk history. & New & 1 \\ \hline
+FR-RISK-07 & The system shall display to each student only their own warnings, together with suggested actions (e.g., materials to review, assignments to submit). & New & 1 \\ \hline
+FR-RISK-08 & The system shall allow teachers to send a reminder message to an at-risk student, optionally starting from a draft generated by the language model from the warning factors. & New & 2 \\ \hline
+\end{frtable}
+
+\subsection{Course recommendation}
+\begin{frtable}{Functional requirements: course recommendation}{tab:fr-recommendation}
+FR-REC-01 & The system shall recommend suitable courses to students based on their major, completed courses, prerequisites, and academic results, and shall give the reason for each recommendation. & New & 2 \\ \hline
+\end{frtable}

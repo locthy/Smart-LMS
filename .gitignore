@@ -24,3 +24,23 @@ ai_service/vector_store/
 .DS_Store
 Thumbs.db
 *.log
+
+# === LaTeX Build Artifacts ===
+report/*.aux
+report/*.bbl
+report/*.bcf
+report/*.blg
+report/*.fdb_latexmk
+report/*.fls
+report/*.lof
+report/*.lot
+report/*.out
+report/*.run.xml
+report/*.synctex.gz
+report/*.toc
+report/*.xdv
+report/*.nav
+report/*.snm
+report/*.vrb
+report/*.tmp
+report/page1_*.png

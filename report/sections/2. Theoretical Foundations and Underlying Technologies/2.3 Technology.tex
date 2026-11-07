@@ -1,0 +1,140 @@
+\section{Technologies}
+
+\subsection{Python and FastAPI}
+
+Python is a high-level, general-purpose programming language known for
+its readable syntax, flexibility, and extensive ecosystem of libraries.
+It supports multiple programming paradigms, including procedural,
+object-oriented, and asynchronous programming, making it suitable for
+developing modern backend applications and data-driven systems.
+
+FastAPI is a modern Python web framework designed for building
+high-performance RESTful APIs. It uses Python type hints and Pydantic
+for request validation, data serialization, and schema definition.
+FastAPI also automatically generates interactive API documentation
+through OpenAPI and Swagger UI, simplifying API development, testing,
+and integration.
+
+In this system, Python and FastAPI are used to implement backend
+business logic and expose API endpoints for communication between
+the client application, application services, and the database.
+
+\subsection{Uvicorn}
+
+Uvicorn is a lightweight ASGI (Asynchronous Server Gateway Interface)
+server designed to run asynchronous Python web applications.
+It uses an event-driven architecture to handle concurrent connections
+efficiently and supports asynchronous request processing through
+Python's \texttt{async} and \texttt{await} syntax.
+
+Unlike a web framework, Uvicorn does not define application endpoints
+or business logic. Instead, it receives incoming HTTP requests,
+forwards them to the ASGI application, and returns the generated
+responses to clients.
+
+In this system, Uvicorn serves as the application server for FastAPI,
+allowing the backend API to receive and process HTTP requests.
+It can be configured with multiple worker processes when additional
+request-processing capacity is required.
+
+\subsection{PostgreSQL}
+
+PostgreSQL is an open-source relational database management system
+that provides reliable data storage, advanced querying capabilities,
+and strong transactional guarantees. It supports SQL, primary and
+foreign keys, indexes, constraints, and database transactions to
+maintain data consistency and integrity.
+
+PostgreSQL follows the ACID properties of database transactions:
+Atomicity, Consistency, Isolation, and Durability. These properties
+help ensure that related database operations are executed reliably.
+It also provides features such as indexing, concurrency control,
+and extensible data types to support different application requirements.
+
+In this system, PostgreSQL stores persistent application data,
+including user information, business records, and relationships
+between entities. Its transactional capabilities help maintain
+data integrity when multiple users or requests access the system
+concurrently.
+
+\subsection{Nginx}
+
+Nginx is a high-performance web server that can also function as
+a reverse proxy, load balancer, and HTTP cache. It is designed to
+handle a large number of concurrent connections with relatively
+low resource consumption, making it suitable for production
+environments.
+
+As a reverse proxy, Nginx receives incoming client requests and
+forwards them to the appropriate backend application server.
+It can also handle HTTPS termination, configure request limits,
+and distribute traffic among multiple application instances.
+These capabilities help separate public-facing traffic management
+from backend application processing.
+
+In this system, Nginx acts as the entry point for incoming HTTP
+or HTTPS requests and forwards API traffic to Uvicorn running
+the FastAPI application. This configuration provides a clear
+boundary between external clients and the backend services.
+
+\subsection{Docker}
+
+Docker is a containerization platform that packages an application
+and its dependencies into a standardized container image. Containers
+provide isolated execution environments while sharing the host
+operating system kernel, making them generally more lightweight
+than traditional virtual machines.
+
+A Docker image defines the application environment, including
+the required runtime, libraries, configuration, and application
+files. A Docker container is a running instance of that image.
+Using a \texttt{Dockerfile} and container configuration allows
+developers to reproduce application environments consistently
+across development, testing, and deployment.
+
+In this system, Docker packages the backend application and its
+runtime dependencies into containers. It can also be used to run
+PostgreSQL and Nginx as separate containers, allowing the main
+components to be configured, deployed, and managed independently.
+Docker Compose can simplify local development by defining how
+these containers interact within a shared network.
+
+\subsection{PHP}
+
+(PHP: Hypertext Preprocessor) is a free, open-source, general-purpose scripting language particularly suited for web development. Its scripts execute on the server, enabling the creation of dynamic and interactive web pages, and PHP can be embedded into HTML.
+
+\subsection{Moodle}
+Moodle, short for Modular Object-Oriented Dynamic Learning Environment, is a free, open-source Learning Management System (LMS) designed to support online and blended learning. It provides a platform where educators can create and manage courses, share learning materials, organize activities, assess students, and support communication between learners and teachers. Since Moodle is open source, its code can be modified and extended to meet the needs of different educational institutions. 
+Moodle provides a range of built-in learning tools and supports additional functionality through plugins and themes. It can be installed on a web server managed by an institution, allowing the institution to configure and customize the system according to its requirements. These capabilities make Moodle suitable as a foundation for projects that extend an existing learning environment with additional features.
+
+\medskip
+\noindent\textbf{User Interface.} Moodle provides a web-based interface through which students, teachers, and administrators access learning and management functions. Depending on their roles and permissions, users can view courses, access learning resources, submit assignments, participate in activities, manage course content, and review grades. The appearance of a Moodle site can also be customized using themes, allowing institutions to adjust its layout and visual presentation. 
+
+\medskip
+\noindent\textbf{Database.} Moodle uses a database to store structured information required for the operation of the learning platform. This includes information about users, courses, enrollments, activities, grades, and system configuration. Moodle supports several database systems, including PostgreSQL, MySQL-compatible databases, and Microsoft SQL Server. The database stores structured records, while uploaded files are handled through Moodle's file storage system.
+
+\medskip
+\noindent\textbf{Moodledata.} The moodledata directory is used to store files and supporting data generated or managed during Moodle's operation. It includes uploaded course materials and user files, as well as temporary files, cached data, and session-related information. Unlike the database, which stores structured records, moodledata provides file storage for the Moodle site. For security, this directory should be located outside the web-accessible directory.
+
+\medskip
+\noindent\textbf{Moodle Architecture and Integration.} Moodle consists of several components that work together to provide an online learning environment. The Moodle application contains the core functionality and handles user requests, while the database stores structured information and the moodledata directory stores uploaded files and other supporting data. These components work together to support course management, learning activities, and other platform functions.
+
+Moodle also provides mechanisms for extending its functionality and communicating with external systems. Its plugin system allows developers to add features for specific purposes, while its Web Services framework enables external applications to access supported Moodle functions through configured endpoints. These mechanisms provide possible approaches for integrating additional services into an existing Moodle environment.
+
+Regarding plugin organization, Moodle categorizes plugins by their types, with each type corresponding to a specific functionality and directory within the platform. For example, activity modules are stored in the \texttt{mod} directory, blocks are stored in the \texttt{blocks} directory, and local plugins are stored in the \texttt{local} directory. Moodle uses a naming convention known as \textit{Frankenstyle} to uniquely identify plugin components. A component name consists of the plugin type prefix followed by the plugin name, separated by an underscore. For example, \texttt{mod\_quiz} identifies the Quiz activity module, while \texttt{block\_html} identifies the HTML block plugin. This convention provides a consistent way to identify plugins throughout the platform.
+
+\medskip
+\noindent\textbf{Moodle Community.} Moodle is supported by an international community of educators, administrators, developers, and organizations. Its official documentation, discussion forums, and plugin directory provide resources for learning, troubleshooting, and extending the platform. Developers can use Moodle's plugin system to add or customize functionality without necessarily changing the core code, making it easier to maintain extensions as the platform evolves.
+
+\subsection{Webpack}
+Webpack is a static module bundler for modern JavaScript applications. It analyzes an application's entry points and their dependencies to construct a dependency graph, then combines the required modules into one or more bundles that can be delivered to a web browser. Webpack supports different types of resources through loaders and plugins, allowing developers to configure how application files are processed during the build process.
+
+\subsection{React App}
+React is a JavaScript library for building user interfaces through reusable components. Each component represents a part of the interface and can contain its own presentation and behavior. By combining components, developers can construct larger interfaces while reusing common elements such as navigation bars, forms, buttons, tables, and dialog boxes. This component-based approach helps organize frontend code and makes interfaces easier to maintain as an application grows.
+
+\subsection{Generative AI}
+Generative Artificial Intelligence (Generative AI) refers to AI systems that generate new content in response to input instructions or contextual information. Depending on the model and application, generated content may include natural-language text, summaries, explanations, images, or other forms of output. Large Language Models (LLMs) are particularly relevant to text-based applications because they can interpret natural-language questions and produce responses in a conversational format.
+
+
+\subsection{GitHub}
+GitHub is a platform for hosting Git repositories and supporting collaborative software development. Git is a distributed version control system that records changes to files over time, while GitHub provides repository hosting and collaboration features around that version history. Developers can use repositories to organize source code and related project files, commits to record changes, and branches to work on separate features or fixes without directly modifying the main development branch.

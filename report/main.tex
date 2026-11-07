@@ -1,0 +1,132 @@
+% !TeX program = xelatex
+\documentclass[12pt]{report}
+\usepackage[fontsize=13pt]{scrextend}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+% \usepackage{svg}
+\usepackage{tgtermes}
+\usepackage{fontspec}
+\usepackage{biblatex}
+\addbibresource{sections/ref.bib}
+% \usepackage{pgfsys}
+% \usepackage{transparent}
+\setmainfont{Times New Roman}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usetikzlibrary{positioning}
+\usepackage{anyfontsize}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{lscape}
+\linespread{1.5}
+\setlength{\parindent}{0pt}
+\usepackage{hyperref}
+\usepackage{longtable}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage{subcaption}
+
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{xltabular}
+\usepackage{array}
+
+\lstset{
+    basicstyle=\small\ttfamily, % Small font size
+    numbers=left,
+    frame=single,
+}
+\usepackage{pgfplots} % Required for the TikZ figure
+\pgfplotsset{compat=1.17} % Ensure compatibility with the latest version of pgfplots
+
+\newcommand{\Khang}[1]{\textcolor{red!70!pink}{\textbf{\textit{#1}}}}
+
+% Define chapter font size to be 15pt
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% Adjust space reserved for numbers in List of Figures and List of Tables
+% Default is 2.3em which causes numbers with 3 levels (like 2.1.10) to overlap the caption text
+\makeatletter
+\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
+\renewcommand*\l@table{\@dottedtocline{1}{1.5em}{2.8em}}
+\makeatother
+
+\begin{document}
+
+\input{sections/cover-page}
+\setmainfont{Times New Roman}
+
+\clearpage
+\pagenumbering{roman} 
+\input{sections/ins-signature}
+
+\input{sections/decl-of-authen}
+
+\input{sections/ack}
+
+\input{sections/abstract}
+
+\input{sections/table-of-glossary}
+
+% \input{sections/list-of-abbreviations}
+
+\input{sections/contents}
+
+\listoftables
+\newpage
+
+\listoffigures
+\newpage
+
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+
+\textit{In chapter 1, the overview, objectives, and goals of the research project are illustrated. The outline of the report is also presented.}
+
+\input{sections/1.Introduction/1.1.Background}
+
+\input{sections/1.Introduction/1.2.Goals}
+
+\input{sections/1.Introduction/1.3.Scope}
+
+\input{sections/1.Introduction/1.4.Thesis-structure}
+
+
+
+
+
+\chapter{Theoretical Background}
+\textit{This chapter presents preliminary knowledge which is fundamental of our project.}
+
+\input{sections/2. Theoretical Foundations and Underlying Technologies/2.1 Related Systems Survey}
+
+\input{sections/2. Theoretical Foundations and Underlying Technologies/2.2 Theory Foundation.tex}
+
+\input{sections/2. Theoretical Foundations and Underlying Technologies/2.3 Technology.tex}
+
+\chapter{System Analysis}
+\input{sections/3. System Analysis/3.1 Functional requirements.tex}
+\input{sections/3. System Analysis/3.2 Non-functional requirements.tex}
+\input{sections/3. System Analysis/3.3 Use case.tex}
+
+
+\chapter{Conclusion}
+
+\input{sections/5.Conclusion/summary}
+\input{sections/references}
+
+\input{sections/appendixes/appendix}
+\input{sections/appendixes/plan}
+% add appendix later on
+
+\end{document}
