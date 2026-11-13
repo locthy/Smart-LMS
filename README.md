@@ -212,6 +212,18 @@ psql -U moodleuser -d moodle -f scripts/moodle_backup.sql
 
 ---
 
+## 🤝 Contributing & Git Workflow
+
+We follow a **Feature-Branch Workflow** (Simplified GitFlow) and **Scoped Conventional Commits** to keep our multi-service repository clean, reliable, and conflict-free:
+
+- **Branch Naming**: `<type>/<scope>-<short-description>` (e.g., `feat/plugin-risk-extractor`, `feat/ai-rag-pipeline`).
+- **Commit Format**: `<type>(<scope>): <imperative description>` (e.g., `feat(ai): add streaming endpoint`).
+- **Branch Lifecycle**: Never reuse merged branches. Always delete after merge and cut fresh branches from `develop`.
+
+👉 **Please read our full [Contributing Guidelines (CONTRIBUTING.md)](./CONTRIBUTING.md)** for detailed rules, type/scope tables, PR review checklists, and local branch cleanup commands before opening a Pull Request.
+
+---
+
 ## Compiling the Capstone Report (LaTeX)
 
 The capstone thesis documentation is located in the `report/` directory.
