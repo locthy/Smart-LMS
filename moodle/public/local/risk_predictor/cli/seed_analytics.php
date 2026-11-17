@@ -1,6 +1,32 @@
 <?php
 define('CLI_SCRIPT', true);
 
+// Fast-path help output without requiring DB connection
+if (isset($argv) && (in_array('--help', $argv, true) || in_array('-h', $argv, true))) {
+    $help = <<<HELP
+Synthetic Moodle Learning Analytics Seeder (LOCAL DEVELOPMENT & TESTBED)
+
+Seeds realistic test student profiles (Safe, Borderline, At-Risk) with backdated
+course logins, assignments, gradebook records, and activity completion states.
+
+Options:
+  -h, --help            Show this help message.
+  --students=N          Number of synthetic students to generate (default: 15).
+                        Automatically partitioned into 3 equal archetypes:
+                        Safe (100% completion, high grades),
+                        Borderline (50-60% completion, average grades),
+                        At-Risk (<30% completion, low grades/inactivity).
+  --courses=N           Number of synthetic test courses to create (default: 2).
+  --prefix=TEXT         Prefix for usernames and course shortnames (default: AISEED).
+  --categoryid=ID       Target course category ID in Moodle (default: 1).
+
+Example:
+  php moodle/public/local/risk_predictor/cli/seed_analytics.php --students=15 --courses=2
+HELP;
+    echo $help . PHP_EOL;
+    exit(0);
+}
+
 // Include Moodle config from public root
 require(__DIR__ . '/../../../../config.php');
 require_once($CFG->libdir . '/clilib.php');
@@ -30,7 +56,27 @@ if (!function_exists('cli_get_params')) {
 );
 
 if ($options['help']) {
-    echo "Usage: php seed_analytics.php --students=15 --courses=2 [--prefix=AISEED]\n";
+    $help = <<<HELP
+Synthetic Moodle Learning Analytics Seeder (LOCAL DEVELOPMENT & TESTBED)
+
+Seeds realistic test student profiles (Safe, Borderline, At-Risk) with backdated
+course logins, assignments, gradebook records, and activity completion states.
+
+Options:
+  -h, --help            Show this help message.
+  --students=N          Number of synthetic students to generate (default: 15).
+                        Automatically partitioned into 3 equal archetypes:
+                        Safe (100% completion, high grades),
+                        Borderline (50-60% completion, average grades),
+                        At-Risk (<30% completion, low grades/inactivity).
+  --courses=N           Number of synthetic test courses to create (default: 2).
+  --prefix=TEXT         Prefix for usernames and course shortnames (default: AISEED).
+  --categoryid=ID       Target course category ID in Moodle (default: 1).
+
+Example:
+  php moodle/public/local/risk_predictor/cli/seed_analytics.php --students=15 --courses=2
+HELP;
+    echo $help . PHP_EOL;
     exit(0);
 }
 

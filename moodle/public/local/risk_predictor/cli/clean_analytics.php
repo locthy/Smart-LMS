@@ -1,6 +1,25 @@
 <?php
 define('CLI_SCRIPT', true);
 
+// Fast-path help output without requiring DB connection
+if (isset($argv) && (in_array('--help', $argv, true) || in_array('-h', $argv, true))) {
+    $help = <<<HELP
+Synthetic Analytics Data Cleanup CLI (LOCAL TEST SITE ONLY)
+
+Purges synthetic test courses, users, grade items, and generated logs
+matching the specified prefix without affecting existing site data.
+
+Options:
+  -h, --help            Show this help message.
+  --prefix=TEXT         Prefix of synthetic users and courses to clean (default: AISEED).
+
+Example:
+  php moodle/public/local/risk_predictor/cli/clean_analytics.php --prefix=AISEED
+HELP;
+    echo $help . PHP_EOL;
+    exit(0);
+}
+
 require(__DIR__ . '/../../../../config.php');
 require_once($CFG->libdir . '/clilib.php');
 require_once($CFG->dirroot . '/course/lib.php');
@@ -17,7 +36,20 @@ global $DB;
 );
 
 if ($options['help']) {
-    echo "Usage: php clean_analytics.php [--prefix=AISEED]\n";
+    $help = <<<HELP
+Synthetic Analytics Data Cleanup CLI (LOCAL TEST SITE ONLY)
+
+Purges synthetic test courses, users, grade items, and generated logs
+matching the specified prefix without affecting existing site data.
+
+Options:
+  -h, --help            Show this help message.
+  --prefix=TEXT         Prefix of synthetic users and courses to clean (default: AISEED).
+
+Example:
+  php moodle/public/local/risk_predictor/cli/clean_analytics.php --prefix=AISEED
+HELP;
+    echo $help . PHP_EOL;
     exit(0);
 }
 
