@@ -4,6 +4,7 @@
 \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 % \usepackage{svg}
 \usepackage{tgtermes}
+\usepackage[utf8]{inputenc}
 \usepackage{fontspec}
 \usepackage{biblatex}
 \addbibresource{sections/ref.bib}
@@ -31,11 +32,15 @@
     citecolor=black,
     filecolor=black,
     linkcolor=black,
-    urlcolor=black
+    urlcolor=black,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    bookmarksopen=true
 }
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 \usepackage{subcaption}
 
-\usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \usepackage{xltabular}
 \usepackage{array}
@@ -115,10 +120,10 @@
 \input{sections/2. Theoretical Foundations and Underlying Technologies/2.3 Technology.tex}
 
 \chapter{System Analysis}
-\input{sections/3. System Analysis/3.1 Functional requirements.tex}
-\input{sections/3. System Analysis/3.2 Non-functional requirements.tex}
-\input{sections/3. System Analysis/3.3 Use case.tex}
+\input{sections/3. System Analysis/3. System Analysis.tex}
 
+\chapter{Software Architecture Design}
+\input{sections/4. Software Architecture Design/4. Software Architecture Design.tex}
 
 \chapter{Conclusion}
 
