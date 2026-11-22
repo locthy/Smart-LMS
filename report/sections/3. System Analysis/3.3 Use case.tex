@@ -143,99 +143,12 @@ Exception Flow &
     \label{fig:student-usecase}
 \end{figure}
 
-
 {
 \renewcommand{\arraystretch}{1.1}
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
 Use-case ID & UC-STU-01 \\ \hline
-Use-case name & Login \\ \hline
-Author & Dinh Cao Thien Loc \\ \hline
-Description & Allows the student to authenticate and log into the system to access their personal dashboard and academic features. \\ \hline
-Actor & Student \\ \hline
-Trigger & The Student accesses the system's login portal. \\ \hline
-Precondition &
-1. The Student has a valid, active account in the system. \par
-2. The Student is not currently logged in. \\ \hline
-Postcondition & The Student is authenticated and can access system features according to their role. \\ \hline
-Normal Flow &
-1. The Student enters their credentials (e.g., username/email and password). \par
-2. The Student submits the login form. \par
-3. The system validates the entered credentials against the database. \par
-4. If validation succeeds, the system authenticates the Student and generates a secure session. \par
-5. The system redirects the Student to the student dashboard. \\ \hline
-Alternative Flow & N/A. \\ \hline
-Exception Flow &
-\textbf{E1: Invalid credentials} \par
-1. At step 3 of the normal flow, the credentials do not match the database. \par
-2. The system rejects the login attempt, displays an error message, and prompts the Student to try again. \par\vspace{4pt}
-\textbf{E2: Account locked or suspended} \par
-1. At step 3 of the normal flow, the system detects the account is locked. \par
-2. The system denies access and displays a contact support message. \\ \hline
-\end{longtable}
-}
-
-{
-\renewcommand{\arraystretch}{1.1}
-\setlength{\tabcolsep}{8pt}
-\begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
-\hline
-Use-case ID & UC-STU-02 \\ \hline
-Use-case name & Logout \\ \hline
-Author & Dinh Cao Thien Loc \\ \hline
-Description & Allows the student to securely terminate their active session and leave the system. \\ \hline
-Actor & Student \\ \hline
-Trigger & The Student selects the logout function from the navigation menu. \\ \hline
-Precondition & The Student is currently logged into the system. \\ \hline
-Postcondition & The Student's session is completely terminated. \\ \hline
-Normal Flow &
-1. The Student clicks the logout button. \par
-2. The system terminates the active user session and clears authentication tokens. \par
-3. The system redirects the Student to the login page or public homepage. \\ \hline
-Alternative Flow & N/A. \\ \hline
-Exception Flow &
-\textbf{E1: Session already expired} \par
-1. At step 2 of the normal flow, the system detects the session has already expired. \par
-2. The system safely redirects the Student to the login page without error. \\ \hline
-\end{longtable}
-}
-
-{
-\renewcommand{\arraystretch}{1.1}
-\setlength{\tabcolsep}{8pt}
-\begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
-\hline
-Use-case ID & UC-STU-03 \\ \hline
-Use-case name & Update Profile \\ \hline
-Author & Dinh Cao Thien Loc \\ \hline
-Description & Allows the student to modify and update allowable personal information such as phone number, avatar, and personal email. \\ \hline
-Actor & Student \\ \hline
-Trigger & The Student selects the option to edit their personal profile. \\ \hline
-Precondition & The Student is authenticated and logged into the system. \\ \hline
-Postcondition & The Student's updated profile information is saved and reflected in the system. \\ \hline
-Normal Flow &
-1. The Student opens the profile management section. \par
-2. The system displays the current profile information in an editable form. \par
-3. The Student updates allowable fields (e.g., phone number, avatar, personal email). \par
-4. The Student submits the updated form. \par
-5. The system validates the data formats and checks for any prohibited changes. \par
-6. The system saves the updated information to the database. \par
-7. The system confirms that the profile has been updated successfully. \\ \hline
-Alternative Flow & N/A. \\ \hline
-Exception Flow &
-\textbf{E1: Invalid data format} \par
-1. At step 5 of the normal flow, the user inputs malformed data (e.g., malformed email). \par
-2. The system identifies the problem, highlights the field, and requests correction; the profile is not updated. \\ \hline
-\end{longtable}
-}
-
-{
-\renewcommand{\arraystretch}{1.1}
-\setlength{\tabcolsep}{8pt}
-\begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
-\hline
-Use-case ID & UC-STU-04 \\ \hline
 Use-case name & Browse Available Courses \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to view, search, and filter the catalog of available courses for the upcoming or current semester. \\ \hline
@@ -259,47 +172,13 @@ Exception Flow &
 \end{longtable}
 }
 
-{
-\renewcommand{\arraystretch}{1.1}
-\setlength{\tabcolsep}{8pt}
-\begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
-\hline
-Use-case ID & UC-STU-05 \\ \hline
-Use-case name & Register for Courses \\ \hline
-Author & Dinh Cao Thien Loc \\ \hline
-Description & Allows the student to officially enroll in a specific course or section during the registration period. \\ \hline
-Actor & Student \\ \hline
-Trigger & The Student selects the function to register for a specific course/section. \\ \hline
-Precondition &
-1. The Student is authenticated. \par
-2. The course registration period is officially open. \\ \hline
-Postcondition & The Student is officially enrolled in the course, and the available seat count is decreased by one. \\ \hline
-Normal Flow &
-1. The Student views an available course and clicks the ``Register'' button. \par
-2. The system checks the Student's eligibility (e.g., prerequisites passed, maximum credit limit not exceeded, schedule conflicts). \par
-3. The system checks if there are available seats in the selected course section. \par
-4. The system records the Student's enrollment in the course. \par
-5. The system confirms the successful registration. \\ \hline
-Alternative Flow & N/A. \\ \hline
-Exception Flow &
-\textbf{E1: Prerequisites not met} \par
-1. At step 2 of the normal flow, the student does not meet the course prerequisites. \par
-2. The system denies registration and lists the missing prerequisite courses. \par\vspace{4pt}
-\textbf{E2: Class is full} \par
-1. At step 3 of the normal flow, there are no available seats. \par
-2. The system denies registration and offers an option to join a waitlist (if applicable). \par\vspace{4pt}
-\textbf{E3: Schedule conflict} \par
-1. At step 2 of the normal flow, the system detects a scheduling conflict with existing enrollments. \par
-2. The system highlights the overlapping courses and denies registration. \\ \hline
-\end{longtable}
-}
 
 {
 \renewcommand{\arraystretch}{1.1}
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-06 \\ \hline
+Use-case ID & UC-STU-02 \\ \hline
 Use-case name & View Enrolled Courses \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to view a list of all courses they are currently enrolled in via their dashboard. \\ \hline
@@ -324,7 +203,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-07 \\ \hline
+Use-case ID & UC-STU-03 \\ \hline
 Use-case name & View Course Materials \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to access, view, or download learning materials uploaded by the lecturer for a specific course. \\ \hline
@@ -351,7 +230,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-08 \\ \hline
+Use-case ID & UC-STU-04 \\ \hline
 Use-case name & View Grades \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to view their assessment scores, cumulative GPA, and feedback provided by the lecturer. \\ \hline
@@ -378,7 +257,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-09 \\ \hline
+Use-case ID & UC-STU-05 \\ \hline
 Use-case name & Take Quizzes \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to attempt and submit an active online quiz within a scheduled time frame. \\ \hline
@@ -411,7 +290,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-10 \\ \hline
+Use-case ID & UC-STU-06 \\ \hline
 Use-case name & Submit Assignments \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to upload file attachments or text submissions into an open assignment dropbox. \\ \hline
@@ -445,7 +324,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-11 \\ \hline
+Use-case ID & UC-STU-07 \\ \hline
 Use-case name & Track Learning Progress \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to monitor their completion percentage and remaining tasks for a specific course. \\ \hline
@@ -470,7 +349,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-12 \\ \hline
+Use-case ID & UC-STU-08 \\ \hline
 Use-case name & View Schedule \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to view their academic timetable, including classes, assignment deadlines, and exam dates on a calendar interface. \\ \hline
@@ -498,7 +377,7 @@ Exception Flow &
 \setlength{\tabcolsep}{8pt}
 \begin{longtable}{|>{\bfseries\raggedright\arraybackslash}p{0.205\textwidth}|>{\raggedright\arraybackslash}p{0.70\textwidth}|}
 \hline
-Use-case ID & UC-STU-13 \\ \hline
+Use-case ID & UC-STU-09 \\ \hline
 Use-case name & Ask AI Questions Based on Uploaded/Course Materials \\ \hline
 Author & Dinh Cao Thien Loc \\ \hline
 Description & Allows the student to ask questions and receive AI-generated answers grounded exclusively in the uploaded materials of the course. \\ \hline
@@ -550,7 +429,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-01 \\ \hline
 Use-case name & Create User Account \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to create a new user account by entering the required information and assigning a mandatory role to the account. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the create user account function. \\ \hline
@@ -593,7 +472,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-02 \\ \hline
 Use-case name & Update User Account \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to view and update the information of an existing user account. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects a user account to update. \\ \hline
@@ -636,7 +515,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-03 \\ \hline
 Use-case name & Deactivate User Account \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to deactivate an existing user account without permanently deleting it, preventing the user from logging in while preserving the account's data and learning history. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the deactivate account function for a user. \\ \hline
@@ -681,7 +560,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-04 \\ \hline
 Use-case name & Assign User Role \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to assign or change a user's role among Student, Lecturer, and Admin according to the system's access control rules. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the role assignment function for a user account. \\ \hline
@@ -726,7 +605,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-05 \\ \hline
 Use-case name & Manage Courses \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to create, view, update, and deactivate courses in the learning management system. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator accesses the course management module. \\ \hline
@@ -772,7 +651,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-06 \\ \hline
 Use-case name & Create Classes or Sections \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to create a class or section associated with an existing course. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the create class or section function. \\ \hline
@@ -815,7 +694,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-07 \\ \hline
 Use-case name & Assign Lecturers \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to assign eligible lecturers to classes or courses while ensuring that the selected lecturer has the correct role and no scheduling conflicts. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the lecturer assignment function for a class or course. \\ \hline
@@ -863,7 +742,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-08 \\ \hline
 Use-case name & Review Course Registrations \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to review student course registration requests and approve or reject them. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator opens the course registration management module. \\ \hline
@@ -911,7 +790,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-09 \\ \hline
 Use-case name & Assign Students to Classes or Sections \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to assign eligible students to classes or sections after their course registration has been approved. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the assign students function for a class or section. \\ \hline
@@ -961,7 +840,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-10 \\ \hline
 Use-case name & Manage Class Schedules \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to create and update class schedules while checking for conflicts involving time, room, lecturer, and assigned students. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator opens the class schedule management function. \\ \hline
@@ -1008,7 +887,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-11 \\ \hline
 Use-case name & Send Notifications \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to send notifications to relevant users through the system's available notification channels. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator selects the send notification function. \\ \hline
@@ -1052,7 +931,7 @@ Exception Flow &
 \hline
 Use-case ID & UC-ADM-12 \\ \hline
 Use-case name & Manage System Configuration \\ \hline
-Author & [Author Name] \\ \hline
+Author & Tran Tri Dung \\ \hline
 Description & Allows the administrator to view and update configurable system settings according to the administrator's permissions. \\ \hline
 Actor & System Administrator \\ \hline
 Trigger & The System Administrator accesses the system configuration module. \\ \hline

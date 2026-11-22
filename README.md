@@ -212,7 +212,7 @@ psql -U moodleuser -d moodle -f scripts/moodle_backup.sql
 
 ---
 
-## 🤝 Contributing & Git Workflow
+## Contributing and Git Workflow
 
 We follow a **Feature-Branch Workflow** (Simplified GitFlow) and **Scoped Conventional Commits** to keep our multi-service repository clean, reliable, and conflict-free:
 
@@ -220,7 +220,7 @@ We follow a **Feature-Branch Workflow** (Simplified GitFlow) and **Scoped Conven
 - **Commit Format**: `<type>(<scope>): <imperative description>` (e.g., `feat(ai): add streaming endpoint`).
 - **Branch Lifecycle**: Never reuse merged branches. Always delete after merge and cut fresh branches from `develop`.
 
-👉 **Please read our full [Contributing Guidelines (CONTRIBUTING.md)](./CONTRIBUTING.md)** for detailed rules, type/scope tables, PR review checklists, and local branch cleanup commands before opening a Pull Request.
+**Please read our full [Contributing Guidelines (CONTRIBUTING.md)](./CONTRIBUTING.md)** for detailed rules, type/scope tables, PR review checklists, and local branch cleanup commands before opening a Pull Request.
 
 ---
 
