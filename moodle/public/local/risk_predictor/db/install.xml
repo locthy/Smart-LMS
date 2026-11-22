@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/risk_predictor/db" VERSION="20261122" COMMENT="XMLDB file for Moodle local_risk_predictor plugin"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_risk_configs" COMMENT="Course-level early warning threshold rules and configuration">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key referencing mdl_course.id"/>
+        <FIELD NAME="total_weeks" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="15" SEQUENCE="false" COMMENT="Total duration of course in weeks"/>
+        <FIELD NAME="risk_threshold" TYPE="number" LENGTH="10" DECIMALS="4" NOTNULL="true" DEFAULT="0.5000" SEQUENCE="false" COMMENT="Risk classification threshold probability"/>
+        <FIELD NAME="inactivity_days_threshold" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="7" SEQUENCE="false" COMMENT="Days of inactivity threshold to trigger alert"/>
+        <FIELD NAME="quiz_drop_pct_threshold" TYPE="number" LENGTH="10" DECIMALS="4" NOTNULL="true" DEFAULT="20.0000" SEQUENCE="false" COMMENT="Quiz score drop percentage threshold"/>
+        <FIELD NAME="missed_assign_threshold" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="2" SEQUENCE="false" COMMENT="Missed assignments threshold"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Timestamp of last configuration update"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course_id_fk" TYPE="foreign-unique" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="local_risk_snapshots" COMMENT="Student weekly activity and academic feature snapshots">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key referencing mdl_user.id"/>
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key referencing mdl_course.id"/>
+        <FIELD NAME="current_week" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" COMMENT="Evaluation week number"/>
+        <FIELD NAME="total_weeks" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" COMMENT="Total weeks in course duration"/>
+        <FIELD NAME="max_consecutive_days_without_access" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Max consecutive days without accessing LMS"/>
+        <FIELD NAME="days_with_logs_avg" TYPE="number" LENGTH="10" DECIMALS="4" NOTNULL="true" DEFAULT="0.0000" SEQUENCE="false" COMMENT="Average active days per week with logs"/>
+        <FIELD NAME="first_log_days_diff" TYPE="int" LENGTH="6" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Days between course start and first log"/>
+        <FIELD NAME="missed_assigns" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of missed assignment submissions"/>
+        <FIELD NAME="delay_avg" TYPE="number" LENGTH="10" DECIMALS="4" NOTNULL="true" DEFAULT="0.0000" SEQUENCE="false" COMMENT="Average submission delay in hours"/>
+        <FIELD NAME="quiz_avg_score" TYPE="number" LENGTH="10" DECIMALS="4" NOTNULL="true" DEFAULT="0.0000" SEQUENCE="false" COMMENT="Average quiz score attained"/>
+        <FIELD NAME="snapshot_date" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Timestamp when feature snapshot was taken"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="user_id_fk" TYPE="foreign" FIELDS="user_id" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="course_id_fk" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_course_week_uq" UNIQUE="true" FIELDS="user_id, course_id, current_week"/>
+        <INDEX NAME="course_week_ix" UNIQUE="false" FIELDS="course_id, current_week"/>
+        <INDEX NAME="snapshot_date_ix" UNIQUE="false" FIELDS="snapshot_date"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_risk_insights" COMMENT="Student predicted risk evaluations and XAI explanations">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="snapshot_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Foreign key referencing local_risk_snapshots.id"/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key referencing mdl_user.id"/>
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key referencing mdl_course.id"/>
+        <FIELD NAME="risk_level" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Categorical risk level (low, medium, high)"/>
+        <FIELD NAME="risk_score" TYPE="number" LENGTH="10" DECIMALS="4" NOTNULL="true" SEQUENCE="false" COMMENT="Predicted risk score (0.0000 to 1.0000)"/>
+        <FIELD NAME="top_explanations" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Plain language top contributing risk factors"/>
+        <FIELD NAME="shap_values" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON encoded SHAP values for feature attribution"/>
+        <FIELD NAME="evaluated_at" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Timestamp when evaluation was executed"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="snapshot_id_fk" TYPE="foreign" FIELDS="snapshot_id" REFTABLE="local_risk_snapshots" REFFIELDS="id"/>
+        <KEY NAME="user_id_fk" TYPE="foreign" FIELDS="user_id" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="course_id_fk" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_course_ix" UNIQUE="false" FIELDS="user_id, course_id"/>
+        <INDEX NAME="course_risk_ix" UNIQUE="false" FIELDS="course_id, risk_level"/>
+        <INDEX NAME="evaluated_at_ix" UNIQUE="false" FIELDS="evaluated_at"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
