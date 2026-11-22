@@ -151,10 +151,31 @@ For example, when introducing a new Moodle plugin feature that connects to the A
    - Target base branch: **`develop`**.
    - PR Description: Clearly state what changed, which components are impacted, and how reviewers can test it.
 
-6. **Peer Review & Integration:**
-   - Every PR requires review and approval from at least **one other team member**.
-   - Reviewers must check for merge conflicts, container health, and code cleanliness.
-   - Once approved, merge the PR into `develop`.
+6. **Peer Review & Integration Process:**
+   Following the official [Moodle Development Process](https://moodledev.io/general/development/process):
+
+   - **Step 6.1: Peer Review**:
+     - Every PR requires formal review and approval from at least **one peer reviewer**.
+     - Reviewers verify adherence to Moodle Coding Style, local testbed execution (CLI/Docker), and atomic commit messages (`<type>(<scope>): <summary>`).
+   
+   - **Step 6.2: Pre-Integration Alignment (Rebase / Sync)**:
+     - Before a topic branch can be integrated, it **must** be aligned with the latest `develop` (Integration Branch) to ensure a clean, conflict-free integration:
+       ```bash
+       # Fetch latest develop and align your topic branch
+       git checkout feat/<scope>-<feature-name>
+       git fetch origin
+       git merge origin/develop
+       # Verify tests pass locally, then push
+       git push origin feat/<scope>-<feature-name>
+       ```
+     > [!WARNING]
+     > **Never base work on unmerged branches:** Do not branch your topic branch off a teammate's unmerged PR. Wait until their work is integrated into `develop`, pull `develop`, and branch from there.
+
+   - **Step 6.3: Integration Strategy on GitHub**:
+     - **Merge Method**: Always select **"Create a merge commit"** on GitHub.
+       - ❌ **DO NOT use "Squash and merge"**: Moodle development requires maintaining individual atomic commits (`feat(plugin): ...`, `test(plugin): ...`). Squashing violates this rule by collapsing history into a single blob.
+       - ❌ **DO NOT use "Rebase and merge"** on the GitHub web UI, as it strips commit signatures and PR merge metadata.
+     - **Branch Retirement**: Once merged, the remote topic branch must be immediately deleted on GitHub, and pruned locally.
 
 ---
 
