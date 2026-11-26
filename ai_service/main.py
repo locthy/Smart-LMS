@@ -1,6 +1,11 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+
+load_dotenv()  # optional ai_service/.env (see .env.example); real env vars take precedence
+
+from modules.rag_qa import router as rag_qa_router  # noqa: E402
 
 app = FastAPI(
     title="Intelligent LMS AI Backend",
@@ -16,6 +21,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Course Material RAG Q&A (AI learning assistant)
+app.include_router(rag_qa_router)
 
 
 @app.get("/")
