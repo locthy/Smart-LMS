@@ -41,6 +41,9 @@ services:
       MOODLE_DB_PASS: moodlepass
       MOODLE_WWWROOT: http://localhost:8000
       MOODLE_DATAROOT: /var/www/moodledata
+      # local_ai_qa: where Moodle reaches the AI service (defaults for the plugin settings)
+      AI_SERVICE_URL: http://ai-service:8001
+      AI_SERVICE_KEY: ${RAG_API_KEY:-smartlms-dev-key}
     volumes:
       - ./moodle:/var/www/html
       - moodledata:/var/www/moodledata
@@ -60,6 +63,17 @@ services:
       DATABASE_URL: postgresql://moodleuser:moodlepass@postgres:5432/moodle
       MOODLE_BASE_URL: http://moodle
       PORT: 8001
+      # rag_qa (course material chatbot). Override in a root .env file; see ai_service/.env.example
+      RAG_API_KEY: ${RAG_API_KEY:-smartlms-dev-key}
+      LLM_PROVIDER: ${LLM_PROVIDER:-auto}
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:1234/v1}
+      LLM_MODEL: ${LLM_MODEL:-google/gemma-4-e4b}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_REASONING_EFFORT: ${LLM_REASONING_EFFORT:-none}
+      EMBED_MODEL: ${EMBED_MODEL:-text-embedding-vietnamese_embedding_v2}
+    extra_hosts:
+      # Lets the container reach an LLM server on the host (LM Studio / Ollama) on Linux too
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./ai_service:/app
 

@@ -1,0 +1,99 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ai_qa/drawer
+
+    Left-edge tab that opens a resizable, collapsible document assistant panel.
+
+    Example context (json):
+    {
+        "uniqid": "abc",
+        "contextid": 25,
+        "courseid": 2,
+        "scopelabel": "Databases",
+        "canmanage": true,
+        "isteacher": true,
+        "width": 420,
+        "open": false,
+        "pinned": false
+    }
+}}
+<div class="local-ai-qa" id="local-ai-qa-{{uniqid}}" data-contextid="{{contextid}}" data-courseid="{{courseid}}"
+     data-scopelabel="{{scopelabel}}" data-isteacher="{{#isteacher}}1{{/isteacher}}{{^isteacher}}0{{/isteacher}}"
+     data-width="{{width}}" data-open="{{#open}}1{{/open}}{{^open}}0{{/open}}" data-pinned="{{#pinned}}1{{/pinned}}{{^pinned}}0{{/pinned}}">
+    <button type="button" class="local-ai-qa-tab btn btn-primary d-print-none" data-action="open"
+            aria-controls="local-ai-qa-panel-{{uniqid}}" aria-expanded="false" title="{{#str}}open, local_ai_qa{{/str}}">
+        <i class="icon fa fa-comments fa-fw m-0" aria-hidden="true"></i>
+        <span class="local-ai-qa-tab-label">{{#str}}tablabel, local_ai_qa{{/str}}</span>
+    </button>
+
+    <section class="local-ai-qa-panel bg-body border-end shadow d-print-none" id="local-ai-qa-panel-{{uniqid}}"
+             aria-label="{{#str}}pluginname, local_ai_qa{{/str}}" hidden>
+        <header class="local-ai-qa-header d-flex align-items-center gap-2 px-3 py-2 border-bottom">
+            <i class="icon fa fa-book fa-fw text-primary m-0" aria-hidden="true"></i>
+            <div class="flex-grow-1 overflow-hidden">
+                <h2 class="h6 mb-0">{{#str}}pluginname, local_ai_qa{{/str}}</h2>
+                <div class="small text-body-secondary text-truncate" title="{{scopelabel}}">{{scopelabel}}</div>
+            </div>
+            <button type="button" class="btn btn-icon btn-sm" data-action="newchat" title="{{#str}}newchat, local_ai_qa{{/str}}">
+                <i class="icon fa fa-plus fa-fw m-0" aria-hidden="true"></i>
+                <span class="visually-hidden">{{#str}}newchat, local_ai_qa{{/str}}</span>
+            </button>
+            <button type="button" class="btn btn-icon btn-sm" data-action="pin" aria-pressed="false" title="{{#str}}pin, local_ai_qa{{/str}}">
+                <i class="icon fa fa-thumbtack fa-fw m-0" aria-hidden="true"></i>
+                <span class="visually-hidden">{{#str}}pin, local_ai_qa{{/str}}</span>
+            </button>
+            <button type="button" class="btn btn-icon btn-sm" data-action="close" title="{{#str}}close, local_ai_qa{{/str}}">
+                <i class="icon fa fa-angles-left fa-fw m-0" aria-hidden="true"></i>
+                <span class="visually-hidden">{{#str}}close, local_ai_qa{{/str}}</span>
+            </button>
+        </header>
+
+        <details class="local-ai-qa-docs border-bottom px-3 py-2 small" data-region="docs">
+            <summary>{{#str}}documents, local_ai_qa{{/str}} (<span data-region="doccount">…</span>)</summary>
+            <ul class="list-unstyled mb-2 mt-2" data-region="doclist"></ul>
+            {{#canmanage}}
+            <button type="button" class="btn btn-secondary btn-sm" data-action="sync">
+                <i class="icon fa fa-arrows-rotate fa-fw" aria-hidden="true"></i>{{#str}}sync, local_ai_qa{{/str}}
+            </button>
+            <div class="mt-1 text-body-secondary" data-region="syncstatus" aria-live="polite"></div>
+            {{/canmanage}}
+        </details>
+
+        <div class="local-ai-qa-messages px-3 py-3" data-region="messages" aria-live="polite"></div>
+
+        <div class="local-ai-qa-suggestions px-3" data-region="suggestions"></div>
+
+        <form class="local-ai-qa-form d-flex gap-2 p-2 border-top" data-region="form" action="#" onsubmit="return false;">
+            <label class="visually-hidden" for="local-ai-qa-input-{{uniqid}}">{{#str}}askplaceholder, local_ai_qa{{/str}}</label>
+            <textarea class="form-control" id="local-ai-qa-input-{{uniqid}}" rows="2" maxlength="2000"
+                      placeholder="{{#str}}askplaceholder, local_ai_qa{{/str}}" data-region="input"></textarea>
+            <button type="submit" class="btn btn-primary" data-action="send" title="{{#str}}ask, local_ai_qa{{/str}}">
+                <i class="icon fa fa-paper-plane fa-fw m-0" aria-hidden="true"></i>
+                <span class="visually-hidden">{{#str}}ask, local_ai_qa{{/str}}</span>
+            </button>
+        </form>
+
+        <div class="local-ai-qa-resizer" data-region="resizer" role="separator" aria-orientation="vertical"
+             tabindex="0" title="{{#str}}resize, local_ai_qa{{/str}}" aria-label="{{#str}}resize, local_ai_qa{{/str}}"></div>
+    </section>
+</div>
+{{#js}}
+require(['local_ai_qa/drawer'], function(drawer) {
+    drawer.init('local-ai-qa-{{uniqid}}');
+});
+{{/js}}
