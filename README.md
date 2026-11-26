@@ -212,6 +212,19 @@ psql -U moodleuser -d moodle -f scripts/moodle_backup.sql
 
 ---
 
+## AI Learning Assistant (RAG Chatbot)
+
+Students and teachers open the **Assistant** tab on the left edge of any course page and ask questions answered from the course materials, with citations (file, page).
+
+1. **LLM server**: run an OpenAI-compatible server on the host, e.g. [LM Studio](https://lmstudio.ai) on port `1234` with a chat model (`google/gemma-4-e4b`) and an embedding model (`text-embedding-vietnamese_embedding_v2`). Without it the assistant still works in *extractive* mode (it quotes the best passages).
+2. **Start the stack** (`docker compose up -d`). The AI service exposes `/rag/*` on <http://localhost:8001/docs>; defaults are in `docker-compose.yml` and can be overridden in a root `.env` (see `ai_service/.env.example`).
+3. **Upgrade Moodle** once so the plugin registers its services: *Site administration › Notifications*, or `php admin/cli/upgrade.php`.
+4. **Index a course**: as a teacher, open the Assistant › *Indexed documents* › **Sync course files** (or `php moodle/public/local/ai_qa/cli/sync_course.php --shortname=<course>`).
+
+Hybrid mode (Moodle on host PHP): the plugin's default *Service URL* `http://localhost:8001` already points to the AI container. Details: [`moodle/public/local/ai_qa/README.md`](moodle/public/local/ai_qa/README.md) and [`ai_service/modules/rag_qa/README.md`](ai_service/modules/rag_qa/README.md).
+
+---
+
 ## Contributing and Git Workflow
 
 We follow a **Feature-Branch Workflow** (Simplified GitFlow) and **Scoped Conventional Commits** to keep our multi-service repository clean, reliable, and conflict-free:
